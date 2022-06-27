@@ -49,6 +49,20 @@ namespace bnb::oep::interfaces
         virtual void process_image_async(pixel_buffer_sptr image, rotation input_rotation, oep_image_process_cb callback, std::optional<rotation> target_orientation) = 0;
 
         /**
+         * An asynchronous method for passing a frame to effect player,
+         * and calling callback as a frame will be processed
+         *
+         * @param image the passed instance of the pixel_buffer class provides the access to the image byte data
+         * @param input_rotation image orientation for effect player
+         * @param require_mirroring require mirroring for effect player
+         * @param callback calling when frame will be processed, containing pointer of pixel_buffer for get bytes
+         * @param target_orientation image orientation for postprocessing
+         *
+         * @example process_image_async(my_input_image, rotation::deg0, true, s[](image_processing_result_sptr sptr){}, rotation::deg180)
+         */
+        virtual void process_image_async(pixel_buffer_sptr image, rotation input_rotation, bool require_mirroring, oep_image_process_cb callback, std::optional<rotation> target_orientation) = 0;
+
+        /**
          * Notify about rendering surface being resized.
          * Must be called from the render thread.
          *
